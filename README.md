@@ -1,31 +1,29 @@
 
-   C# - SOLID - Projeto implementado com base no curso da Alura
-   mas aqui utilizando LiteDB (litedb.org)
-
-    Melhores Práticas
-   ----------------------------------------------------------
-   - princípio de responsabilidade única
-   - princípio do aberto / fechado
-   - princípio de inversão de dependência
-   - substituição de Liskov (coesão ao implementar abstrações)
-   - princípio de segregação de interface
-
-
-   - O projeto inicalmente usava SQLServer / EntityFramework;
-   - Fiz a portabilidade para o LiteDB sem ter que alterar o Controller 
-     nem a camada de serviços ; Uma alteração pontual no Modelo.
    
-   Obs.: Durante o curso a dependência com o tipo Inteiro foi observada
-         mas elencada como uma mudança pouco provável.
+    --------------------------------------------------------------
+	- Rotas:                                Verbos
+    --------------------------------------------------------------
 
-         No entanto as chaves primárias auto-incrementadas gerdas pelo Entity 
-         são diferentes do tipo gerado pelo LiteDB; Optei por continuar com o 
-         tipo inteiro gerando um ID no construtor (para fins didáticos) 
-
-	- Rotas:
-       --------------------------------------------------------------
-
- 	Além da aplicação web pode-se utilizar a rota de administração
+        /api/churras                        GET, POST, PUT
+        /api/churras/{id}                   GET, POST, PUT, DELETE
         
-		/leilao
+    {  
+	    "descricao":"Churras de fim da pandemia",
+	    "observacoes":"Pode levar o cachorrro",
+	    "data":"2012-04-23T18:25:43.511Z",
+	    "valorSugerido1":10,
+	    "valorSugerido2":20
+    }
+
+        /api/churras/incluirParticipante    POST
+        /api/churras/excluirParticipante    DELETE
+
+    {
+	    "churrasId":5,
+        "participanteId":3,
+        "valorContribuicao":15
+    }
+        /api/churras/{id}/listarParticipantes   GET
+        /api/churras/{id}/listarPovoDeFora      GET
+ 	
 

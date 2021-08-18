@@ -18,7 +18,7 @@ namespace Trinca.Churras.WebApp.Controllers
             _service = service;
         }
         
-        // GET: api/<ApiController>
+        // GET: api/churras
         [HttpGet]
         public IEnumerable<ChurrasAgenda> Get()
         {
@@ -26,15 +26,15 @@ namespace Trinca.Churras.WebApp.Controllers
             return agendas;
         }
 
-        // GET api/<ApiController>/5
+        // GET api/churras/5
         [HttpGet("{id}")]
-        public ChurrasAgenda Get(int id)
+        public ChurrasAgendaDto Get(int id)
         {
             var agenda = _service.ConsultarChurras(id);
             return agenda;
         }
 
-        // POST api/<ApiController>
+        // POST api/churras
         [HttpPost]
         public IActionResult Post([FromBody] ChurrasAgenda obj)
         {
@@ -46,27 +46,31 @@ namespace Trinca.Churras.WebApp.Controllers
             return Ok(obj);
         }
 
-        // PUT api/<ApiController>/5
+        // PUT api/churras/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ChurrasAgenda obj)
         {
-            if (_service.ConsultarChurras(id) == null) return NotFound();
-            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            if (_service.ConsultarChurras(id) == null) return NotFound("** Churras não encontrado :(  **");
+
             _service.AlterarChurras(obj);
-            return Ok();
+            return Ok(obj);
         }
 
-        // DELETE api/<ApiController>/5
+        // DELETE api/churras/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (_service.ConsultarChurras(id) == null) return NotFound();
+            if (_service.ConsultarChurras(id) == null) return NotFound("** Churras não encontrado :(  **");
 
             _service.ExcluirChurras(id);
             return Ok();
         }
 
-        // GET api/<ApiController>/5
+        // GET api/churras/5/listarPartricipantes
         [HttpGet, Route("{id}/listarParticipantes")]
         public IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id)
         {
@@ -74,21 +78,36 @@ namespace Trinca.Churras.WebApp.Controllers
             return part;
         }
 
-        // POST api/<ApiController>
+        // GET api/churras/5/listarPovoDeFora
+        [HttpGet, Route("{id}/listarPovoDeFora")]
+        public IEnumerable<ParticipanteChurrasDto> ListarPovoDeFora(int id)
+        {
+            var part = _service.ListarPovoDeFora(id);
+            return part;
+        }
+
+        // POST api/incluirParticipante
         [HttpPost, Route("incluirParticipante")]
         public IActionResult Post([FromBody] ParticipanteChurras obj)
         {
+            if (!_service.UsuarioExiste(obj.ParticipanteId)) return Ok("** Usuário não encontrado :( **");
+            if (_service.ConsultarChurras(obj.ChurrasId) == null) return NotFound("** Churras não encontrado :(  **");
+            if (_service.ConsultarParticipante(obj) != null) return Ok("** Participante já está no Churras **");
+
             _service.IncluirParticipante(obj);
-            return Ok();
+            return Ok(obj);
         }
 
-        // DELETE api/<ApiController>/5
-        [HttpDelete, Route("{id}/excluirParticipante")]
+        // DELETE api/excluirParticipante
+        [HttpDelete, Route("excluirParticipante")]
         public IActionResult ExcluirParticipante(ParticipanteChurras obj)
         {
-            if (_service.ConsultarParticipante(obj) == null) return NotFound();
+            if (_service.ConsultarChurras(obj.ChurrasId) == null) return NotFound("** Churras não encontrado :(  **");
 
-            _service.ExcluirParticipante(obj.Id);
+            var consulta = _service.ConsultarParticipante(obj);
+            if ( consulta == null) return NotFound("** Participante não encontrado :( **");
+
+            _service.ExcluirParticipante(consulta.Id);
             return Ok();
         }
 

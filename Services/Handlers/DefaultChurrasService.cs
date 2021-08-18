@@ -26,14 +26,14 @@ namespace Trinca.Churras.WebApp.Services.Handlers
             return _churrasDao.ListarParticipantes(idChurras);
         }
 
-        public IEnumerable<Participante> ListarPovoDeFora(int idChurras)
+        public IEnumerable<ParticipanteChurrasDto> ListarPovoDeFora(int idChurras)
         {
-            throw new NotImplementedException();
+            return _churrasDao.ListarPovoDeFora(idChurras);
         }
 
-        public ChurrasAgenda ConsultarChurras(int idChurras)
+        public ChurrasAgendaDto ConsultarChurras(int idChurras)
         {
-            return _churrasDao.BuscarPorId(idChurras);
+            return _churrasDao.ConsultaDetalhePorId(idChurras);
         }
 
         public void CadastrarChurras(ChurrasAgenda churras)
@@ -67,6 +67,11 @@ namespace Trinca.Churras.WebApp.Services.Handlers
                       .Where(x => x.ParticipanteId == participante.ParticipanteId)
                       .FirstOrDefault();
             return res;
+        }
+
+        public bool UsuarioExiste(int id)
+        {
+            return _churrasDao.UsuarioExiste(id);
         }
     }
 }

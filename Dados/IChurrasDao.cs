@@ -11,6 +11,8 @@ namespace Trinca.Churras.WebApp.Dados
         void Incluir(ChurrasAgenda obj);
         void IncluirParticipante(ParticipanteChurras obj);
         IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id);
-        IEnumerable<ParticipanteChurras> ListarPovoDeFora(int id);
+        IEnumerable<ParticipanteChurrasDto> ListarPovoDeFora(int id);
+        bool UsuarioExiste(int id);
+        ChurrasAgendaDto ConsultaDetalhePorId(int id);
     }
 }
