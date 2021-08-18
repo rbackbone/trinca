@@ -40,10 +40,12 @@ namespace Trinca.Churras.WebApp.Seeding
 
                             if (resPC == null)
                             {
-                                participanteChurras.Insert(new ParticipanteChurras { 
-                                    ChurrasId = novoChurras.Id, 
-                                    ParticipanteId = part.Id 
-                                });
+                                participanteChurras.Insert(new ParticipanteChurras
+                                {
+                                    ChurrasId = novoChurras.Id,
+                                    ParticipanteId = part.Id,
+                                    ValorContribuicao = (35 - p + i)
+                                }) ;
 
                             }
 

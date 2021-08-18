@@ -10,12 +10,10 @@ namespace Trinca.Churras.WebApp.Models
         {
             this.Id = System.Threading.Interlocked.Increment(ref id_Counter);
             this.Nome = nome;
-
         }
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Imagem { get; set; }
-        //public IList<Leilao> Leiloes { get; set; }
     }
 
 }

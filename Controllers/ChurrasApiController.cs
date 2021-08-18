@@ -68,10 +68,10 @@ namespace Trinca.Churras.WebApp.Controllers
 
         // GET api/<ApiController>/5
         [HttpGet, Route("{id}/listarParticipantes")]
-        public IEnumerable<ParticipanteChurras> ListarParticipantes(int id)
+        public IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id)
         {
-            var leiloes = _service.ListarParticipantes(id);
-            return leiloes;
+            var part = _service.ListarParticipantes(id);
+            return part;
         }
 
         // POST api/<ApiController>

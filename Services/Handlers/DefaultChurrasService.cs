@@ -21,7 +21,7 @@ namespace Trinca.Churras.WebApp.Services.Handlers
             return _churrasDao.ListarTodos();
         }
 
-        public IEnumerable<ParticipanteChurras> ListarParticipantes(int idChurras)
+        public IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int idChurras)
         {
             return _churrasDao.ListarParticipantes(idChurras);
         }
@@ -61,7 +61,7 @@ namespace Trinca.Churras.WebApp.Services.Handlers
             _churrasDao.ExcluirParticipante(id);
         }
 
-        public ParticipanteChurras ConsultarParticipante(ParticipanteChurras participante)
+        public ParticipanteChurrasDto ConsultarParticipante(ParticipanteChurras participante)
         {
             var res = _churrasDao.ListarParticipantes(participante.ChurrasId)
                       .Where(x => x.ParticipanteId == participante.ParticipanteId)

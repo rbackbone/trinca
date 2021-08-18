@@ -7,7 +7,7 @@ namespace Trinca.Churras.WebApp.Services
     {
 
         IEnumerable<ChurrasAgenda> ListarAgendaChurras(); // TODO: filtros
-        IEnumerable<ParticipanteChurras> ListarParticipantes(int id); // TODO: filtros
+        IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id); // TODO: filtros
         IEnumerable<Participante> ListarPovoDeFora(int id); // TODO: filtros
         ChurrasAgenda ConsultarChurras(int id);
         void CadastrarChurras(ChurrasAgenda churras);
@@ -15,6 +15,6 @@ namespace Trinca.Churras.WebApp.Services
         void ExcluirChurras(int id);
         void IncluirParticipante(ParticipanteChurras participante);
         void ExcluirParticipante(int id);
-        ParticipanteChurras ConsultarParticipante(ParticipanteChurras participante);
+        ParticipanteChurrasDto ConsultarParticipante(ParticipanteChurras participante);
     }
 }

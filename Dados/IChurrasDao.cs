@@ -10,7 +10,7 @@ namespace Trinca.Churras.WebApp.Dados
         void ExcluirParticipante(int id);
         void Incluir(ChurrasAgenda obj);
         void IncluirParticipante(ParticipanteChurras obj);
-        IEnumerable<ParticipanteChurras> ListarParticipantes(int id);
+        IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id);
         IEnumerable<ParticipanteChurras> ListarPovoDeFora(int id);
     }
 }

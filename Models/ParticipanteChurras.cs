@@ -13,6 +13,7 @@ namespace Trinca.Churras.WebApp.Models
         public int Id { get; set; }
         public int ChurrasId { get; set; }
         public int ParticipanteId { get; set; }
+        public decimal ValorContribuicao { get; set; }
         //public IList<Leilao> Leiloes { get; set; }
     }
 

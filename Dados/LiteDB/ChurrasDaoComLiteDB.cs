@@ -62,11 +62,32 @@ namespace Trinca.Churras.WebApp.Dados.LiteDB
                 .Delete(id);
         }
 
-        public IEnumerable<ParticipanteChurras> ListarParticipantes(int id)
+        public IEnumerable<ParticipanteChurrasDto> ListarParticipantes(int id)
         {
-            return _context
+            var res = _context
             .GetCollection<ParticipanteChurras>("participanteChurras")
             .Find(x => x.ChurrasId == id);
+
+            var part = _context
+            .GetCollection<Participante>("participantes");
+
+            List<ParticipanteChurrasDto> ret = new List<ParticipanteChurrasDto>();
+
+            res.ToList().ForEach(p =>
+            {
+
+                var novo = part.Find(x => x.Id == p.ParticipanteId)
+                               .FirstOrDefault();
+
+                ret.Add(new ParticipanteChurrasDto { 
+                    ParticipanteId = novo.Id, 
+                    Nome = novo.Nome, 
+                    ValorContribuicao= p.ValorContribuicao 
+                });
+
+            });
+
+            return ret;
         }
 
         public IEnumerable<ParticipanteChurras> ListarPovoDeFora(int id)
